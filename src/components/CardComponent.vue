@@ -7,31 +7,40 @@ defineProps({
 });
 
 // Formatear el ID del Pokémon
-const formattedId = (pokemon) => pokemon.toString().padStart(3, '0');
+const formattedId = (id) => id.toString().padStart(3, '0');
 
 // Capitalizar el nombre del Pokémon
 const capitalizeName = (name) => name.charAt(0).toUpperCase() + name.slice(1);
 
 const typeColors = {
-  grass: '#78C850',
-  poison: '#A040A0',
-  fire: '#F08030',
-  water: '#6890F0',
-  bug: '#A8B820',
-  normal: '#A8A878',
-  electric: '#F8D030',
-  ground: '#E0C068',
-  fairy: '#EE99AC',
-  fighting: '#C03028',
-  psychic: '#F85888',
-  rock: '#B8A038',
-  ghost: '#705898',
-  ice: '#98D8D8',
-  dragon: '#7038F8',
-  dark: '#705848',
-  steel: '#B8B8D0',
-  flying: '#A890F0',
+  bug: "#63953e", // Bicho
+  dragon: ["#53A4CF", "#F16E57"], // Dragón
+  fairy: "#FDB9E9", // Hada
+  fire: "#f77031", // Fuego
+  ghost: "#7B62A3", // Fantasma
+  ground: ["#F7DE3F", "#AB9842"], // Tierra
+  normal: "#b5b0af", // Normal
+  psychic: "#F366B9", // Psíquico
+  steel: "#9EB7B8", // Acero
+  dark: "#707070", // Siniestro
+  electric: "#EED535", // Eléctrico
+  fighting: "#D56723", // Lucha
+  flying: ["#3bc0e9", "#b5b0af"], // Volador
+  grass: "#8dc651", // Planta
+  ice: "#51C4E7", // Hielo
+  poison: "#b373bf", // Veneno
+  rock: "#A38C21", // Roca
+  water: "#3587ba", // Agua
 };
+
+function typeStyle(type) {
+  const color = typeColors[type];
+  if (Array.isArray(color)) {
+    return { background: `linear-gradient(to bottom, ${color[0]} 50%, ${color[1]} 50%)` };
+  } else {
+    return { backgroundColor: color };
+  }
+}
 
 </script>
 
@@ -52,8 +61,10 @@ const typeColors = {
         v-for="(type, index) in pokemon.types"
         :key="index"
         class="type"
-        :style="{ backgroundColor: typeColors[type] }"
+        :style="typeStyle(type)"
+        
       >
+        
         {{ capitalizeName(type) }}
       </span>
       
@@ -106,7 +117,7 @@ pokemon-types {
   border-radius: 5px;
   padding: 3px 25px;
   font-size: 0.8em;
-  color: #555;
+  color: #000000;
   text-transform: capitalize; /* Asegurar que los tipos estén capitalizados */
   margin-right: 2px;
   margin-bottom: 2px;
